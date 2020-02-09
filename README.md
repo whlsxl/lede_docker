@@ -8,8 +8,8 @@
 
 * `/lede/`：编译的工作路径，lede仓库会clone到这个目录。挂载出来可以保留没修改部分的编译。
 * `/.config`：make的配置文件，通过`make menuconfig`生成。
-* `/diy_respository.sh`：自定义仓库下载脚本，有时我们要向LEDE添加我们自己的插件。注意要考虑目录存在的情况。
-* `/lede/targets`：编译生成的产品目录。
+* `/diy.sh`：自定义仓库下载脚本，有时我们要向LEDE添加我们自己的插件。注意要考虑目录存在的情况。
+* `/lede/bin`：编译生成的产品目录。
 
 ## 使用
 
@@ -23,8 +23,8 @@ docker run \
   --name lede \
   -v [lede仓库存储位置]:/lede \
   -v [.config文件存储位置]:/.config \
-  -v [编译产品存储位置]:/lede/targets \
-  lede:1804
+  -v [编译产品存储位置]:/lede/bin \
+  whlsxl/lede:latest
 ```
 * `--rm`：编译完成后，自动销毁`container`
 * `-d`：后台运行，查看正在编译日志`docker logs -f lede`
@@ -37,13 +37,13 @@ docker run \
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
-  -v $(pwd)/bin:/lede/targets \
-  lede:1804
+  -v $(pwd)/bin:/lede/bin \
+  whlsxl/lede:latest
 ```
 
 ## 自定义源码仓库
 
-根目录`diy_respository.sh`为自定义脚本示例。把脚本挂载到`/diy_respository.sh`文件下，在下载完lede仓库后，自动执行。
+根目录`diy.sh`为自定义脚本示例。把脚本挂载到`/diy.sh`文件下，在下载完lede仓库后，自动执行。
 
 注意要考虑仓库已经存在情况。
 
@@ -58,8 +58,8 @@ docker run --rm -it --name lede \
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
-  -v $(pwd)/bin:/lede/targets \
-  lede:1804
+  -v $(pwd)/bin:/lede/bin \
+  whlsxl/lede:latest
   make dirclean
 ```
 ### make menuconfig
@@ -70,8 +70,8 @@ docker run --rm -it --name lede \
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
-  -v $(pwd)/bin:/lede/targets \
-  lede:1804
+  -v $(pwd)/bin:/lede/bin \
+  whlsxl/lede:latest
   make menuconfig
 ```
 
@@ -83,7 +83,13 @@ docker run --rm -it --name lede \
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
-  -v $(pwd)/bin:/lede/targets \
-  lede:1804
+  -v $(pwd)/bin:/lede/bin \
+  whlsxl/lede:latest
   make V=s
 ```
+
+## 配置文件
+
+分享个我在软路由上用的配置文件，编译x86_64架构的镜像文件。[x86.config](https://github.com/whlsxl/lede_docker/blob/master/x86.config.sh)，可以在这个基础上定制。
+
+[diy.sh](https://github.com/whlsxl/lede_docker/blob/master/diy.sh)，为自定义脚本示例。

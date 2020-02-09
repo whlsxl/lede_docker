@@ -1,6 +1,6 @@
 #!/bin/bash
 
-diy_sh="/diy_respository.sh"
+diy_sh="/diy.sh"
 
 lede_path="/lede"
 lede_git="https://github.com/coolsnowwolf/lede"
@@ -17,7 +17,9 @@ $lede_path/scripts/feeds update -a
 $lede_path/scripts/feeds install -a
 
 if [ -f "$diy_sh" ]; then
+  echo "runing diy.sh ..."
   source $diy_sh
+  echo "finish diy.sh"
 fi
 
 cd $lede_path

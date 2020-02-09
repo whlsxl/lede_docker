@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-MAINTAINER Hailong <whlsxl@gmail.com>
+LABEL maintainer="Hailong <whlsxl@gmail.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV FORCE_UNSAFE_CONFIGURE=1
@@ -10,7 +10,7 @@ ENV FORCE_UNSAFE_CONFIGURE=1
 # lede make config file, generate after make menuconfig
 VOLUME /lede/
 # build img path
-VOLUME /lede/targets
+VOLUME /lede/bin
 
 # /diy_respository.sh
 # The script to diy lede respository
