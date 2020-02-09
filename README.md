@@ -90,6 +90,6 @@ docker run --rm -it --name lede \
 
 ## 配置文件
 
-分享个我在软路由上用的配置文件，编译x86_64架构的镜像文件。[x86.config](https://github.com/whlsxl/lede_docker/blob/master/x86.config.sh)，可以在这个基础上定制。
+分享个我在软路由上用的配置文件，编译x86_64架构的镜像文件。[x86.config](https://github.com/whlsxl/lede_docker/blob/master/x86.config)，可以在这个基础上定制。
 
 [diy.sh](https://github.com/whlsxl/lede_docker/blob/master/diy.sh)，为自定义脚本示例。
