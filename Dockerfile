@@ -17,6 +17,7 @@ VOLUME /lede/bin
 
 RUN \
   touch /etc/apt/sources.list && \
+  sudo dpkg --add-architecture i386 && \
   # sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
   apt-get update && \
   apt-get -y upgrade && \
