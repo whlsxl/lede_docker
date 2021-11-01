@@ -30,7 +30,9 @@ RUN \
   ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
   dpkg-reconfigure --frontend noninteractive tzdata && \
   echo "alias time=/usr/bin/time" > /root/.bashrc && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* && \
+  git config --global http.sslverify false && \
+  git config --global https.sslverify false
 
 COPY root/ /
 
