@@ -27,13 +27,14 @@ RUN \
   libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
   mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
   python3-setuptools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo \
-  uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev clang && \
+  uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev clang libfuse-dev make golang-go && \
   apt-get install -y wget curl swig time nano tzdata && \
   touch /root/.bashrc && \
   ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
   dpkg-reconfigure --frontend noninteractive tzdata && \
   echo "alias time=/usr/bin/time" > /root/.bashrc && \
-  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/cache/apt/archives /var/lib/apt/lists/* && \
+  apt-get clean && \
   git config --global http.sslverify false && \
   git config --global https.sslverify false
 
@@ -45,4 +46,4 @@ RUN \
 
 WORKDIR /lede/
 
-CMD [ "/lede.sh" ]
+ENTRYPOINT [ "/lede.sh" ]

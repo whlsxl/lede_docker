@@ -8,6 +8,7 @@
 
 * `/lede/`：编译的工作路径，lede仓库会clone到这个目录。挂载出来可以保留没修改部分的编译。
 * `/.config`：make的配置文件，通过`make menuconfig`生成。
+* `/feeds.conf.default`：软件包源的配置文件。
 * `/diy.sh`：自定义仓库下载脚本，有时我们要向LEDE添加我们自己的插件。注意要考虑目录存在的情况。
 * `/lede/bin`：编译生成的产品目录。
 
@@ -23,6 +24,7 @@ docker run \
   --name lede \
   -v [lede仓库存储位置]:/lede \
   -v [.config文件存储位置]:/.config \
+  -v [feeds.conf.default文件存储位置]:/feeds.conf.default \
   -v [编译产品存储位置]:/lede/bin \
   whlsxl/lede:latest
 ```
@@ -37,6 +39,7 @@ docker run \
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
+  -v $(pwd)/feeds.conf.default:/feeds.conf.default \
   -v $(pwd)/bin:/lede/bin \
   whlsxl/lede:latest
 ```
@@ -58,6 +61,7 @@ docker run --rm -it --name lede \
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
+  -v $(pwd)/feeds.conf.default:/feeds.conf.default \
   -v $(pwd)/bin:/lede/bin \
   whlsxl/lede:latest
   make dirclean
@@ -70,22 +74,24 @@ docker run --rm -it --name lede \
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
+  -v $(pwd)/feeds.conf.default:/feeds.conf.default \
   -v $(pwd)/bin:/lede/bin \
   whlsxl/lede:latest
   make menuconfig
 ```
 
-### 加快编译速度
+### 编译查错
 
-默认执行的make是单线程的，出问题容易追踪。以下自动使用多线程编译 
+默认执行的make是多线程的，出问题不容易追踪。以下自动使用单线程编译,容易追踪出错原因.
 
 ```
 docker run --rm -it --name lede \
   -v $(pwd)/lede_new:/lede \
   -v $(pwd)/x86.config:/.config \
+  -v $(pwd)/feeds.conf.default:/feeds.conf.default \
   -v $(pwd)/bin:/lede/bin \
   whlsxl/lede:latest
-  make V=s
+  make V=s -j1
 ```
 
 ## 配置文件
