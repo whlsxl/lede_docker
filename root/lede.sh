@@ -17,7 +17,7 @@ if [ -f ${lede_path}/.config ]; then
   rm ${lede_path}/.config
 fi
 
-cp /.config ${lede_path}/.config
+ln -s /.config ${lede_path}/.config
 if [ -f /feeds.conf.default ]; then
   mv ${lede_path}/feeds.conf.default ${lede_path}/feeds.conf.default.bak
   cp /feeds.conf.default ${lede_path}/feeds.conf.default
